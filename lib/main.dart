@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
 import 'package:currency_exchange/core/presentation/app.dart';
 import 'package:currency_exchange/di/injection_container.dart';
 import 'package:currency_exchange/flavor.dart';
@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'core/data/api_manager/api_manager.dart';
+void main() {
+  AppFlavor.instance.flavor = Flavor.production;
+  bootstrap();
+}
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
