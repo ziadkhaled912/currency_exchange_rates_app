@@ -104,8 +104,14 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
   }
 
   void _onValueChanged(String value) {
-    setState(() {
-      _result = double.parse(value) * widget.dollarRate;
-    });
+    if((double.tryParse(value) ?? 0) > 0) {
+      setState(() {
+        _result = double.parse(value) * widget.dollarRate;
+      });
+    } else {
+      setState(() {
+        _result = 0;
+      });
+    }
   }
 }
