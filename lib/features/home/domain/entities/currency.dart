@@ -1,4 +1,4 @@
-import 'package:currency_exchange/features/home/data/enums/currency.dart';
+import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:equatable/equatable.dart';
 
 class Currency extends Equatable {

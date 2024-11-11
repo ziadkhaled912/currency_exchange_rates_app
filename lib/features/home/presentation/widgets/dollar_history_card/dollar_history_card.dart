@@ -1,5 +1,5 @@
-import 'package:currency_exchange/core/extenstions/context.dart';
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
+import 'package:currency_exchange/core/extensions/context.dart';
+import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/core/presentation/widgets/drop_downs/drop_down_item.dart';
 import 'package:currency_exchange/features/home/presentation/widgets/home_card.dart';
@@ -17,27 +17,27 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
   late List<_ChartData> data;
   final List<GenericDropdownMenuItem<Duration>> timeRanges = const [
     GenericDropdownMenuItem(
-      title: "24 Hours",
+      title: '24 Hours',
       value: Duration(hours: 24),
     ),
     GenericDropdownMenuItem(
-      title: "7 Days",
+      title: '7 Days',
       value: Duration(days: 7),
     ),
     GenericDropdownMenuItem(
-      title: "14 Days",
+      title: '14 Days',
       value: Duration(days: 14),
     ),
     GenericDropdownMenuItem(
-      title: "1 Month",
+      title: '1 Month',
       value: Duration(days: 30),
     ),
     GenericDropdownMenuItem(
-      title: "3 Months",
+      title: '3 Months',
       value: Duration(days: 90),
     ),
     GenericDropdownMenuItem(
-      title: "6 Months",
+      title: '6 Months',
       value: Duration(days: 180),
     ),
   ];
@@ -64,7 +64,7 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
             children: [
               Expanded(
                 child: Text(
-                  "Price Changes in EGP",
+                  'Price Changes in EGP',
                   style: context.textTheme.labelSmall?.copyWith(
                     color: AppColors.secondText,
                   ),
@@ -116,38 +116,9 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
                 borderColor: Colors.green,
                 borderWidth: 4,
                 color: AppColors.primary.withOpacity(0.25),
-              )
+              ),
             ],
           ),
-          // SfSparkLineChart(
-          //   //Enable the trackball
-          //   trackball: SparkChartTrackball(
-          //       activationMode: SparkChartActivationMode.tap),
-          //   //Enable marker
-          //   marker:
-          //       SparkChartMarker(displayMode: SparkChartMarkerDisplayMode.all),
-          //
-          //   //Enable data label
-          //   data: <double>[
-          //     1,
-          //     5,
-          //     -6,
-          //     0,
-          //     1,
-          //     -2,
-          //     7,
-          //     -7,
-          //     -4,
-          //     -10,
-          //     13,
-          //     -6,
-          //     7,
-          //     5,
-          //     11,
-          //     5,
-          //     3
-          //   ],
-          // )
         ],
       ),
     );

@@ -15,11 +15,10 @@ abstract class AppModule {
           sendTimeout: const Duration(seconds: 30),
           followRedirects: true,
           headers: {
-            'Accept' : 'application/json',
-            'apikey' : ApiConstants.apiKey,
-            'x-access-token' : ApiConstants.goldApiKey,
-          }
-      ),
+            'Accept': 'application/json',
+            'apikey': ApiConstants.apiKey,
+            'x-access-token': ApiConstants.goldApiKey,
+          }),
     );
 
     if (shouldLog) {
@@ -32,6 +31,5 @@ abstract class AppModule {
     }
 
     return aDio;
-
   }
 }

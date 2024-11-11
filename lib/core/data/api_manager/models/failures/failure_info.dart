@@ -1,13 +1,14 @@
-import 'package:currency_exchange/core/data/api_manager/models/request/request_mixin.dart';
 import 'package:dio/dio.dart';
+import 'package:equatable/equatable.dart';
 
-class FailureInfo {
-  FailureInfo({
-    this.request,
+class FailureInfo extends Equatable {
+  const FailureInfo({
     this.response,
     this.exception,
   });
-  final Request? request;
   final Response<dynamic>? response;
   final dynamic exception;
+
+  @override 
+  List<Object?> get props => [response, exception];
 }

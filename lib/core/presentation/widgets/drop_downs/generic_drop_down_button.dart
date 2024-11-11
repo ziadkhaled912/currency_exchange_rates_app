@@ -1,5 +1,5 @@
-import 'package:currency_exchange/core/extenstions/context.dart';
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
+import 'package:currency_exchange/core/extensions/context.dart';
+import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/core/presentation/widgets/drop_downs/drop_down_item.dart';
 import 'package:flutter/material.dart';

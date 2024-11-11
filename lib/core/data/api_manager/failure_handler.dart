@@ -9,12 +9,10 @@ class FailureHandler {
   final StatusChecker _statusChecker = StatusChecker();
 
   Failure handle({
-    Request? request,
     dynamic exception,
     Response<dynamic>? response,
   }) {
     final failureInfo = FailureInfo(
-      request: request,
       exception: exception,
       response: response,
     );
@@ -38,19 +36,8 @@ class FailureHandler {
         case DioExceptionType.badResponse:
         case DioExceptionType.badCertificate:
         case DioExceptionType.unknown:
-          {
-            if(exception.message != null) {
-              final socketException =
-              exception.message!.contains("SocketException");
-              final getRequest = request?.method == "GET";
-              final httpException = exception.message!.contains("HttpException") ||
-                  exception.message!.contains("Connection");
-              failure = socketException || (httpException && getRequest)
-                  ? ConnectionFailure()
-                  : UnknownFailure(failureInfo);
-            }
-            failure = UnknownFailure(failureInfo);
-          }
+          failure = UnknownFailure(failureInfo);
+          break;
       }
     } else if (exception is ServerException) {
       final status = _statusChecker(exception.response?.statusCode);
