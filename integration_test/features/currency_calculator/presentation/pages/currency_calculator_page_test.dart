@@ -154,7 +154,7 @@ then it should swap the selected currencies
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('SwapCurrencyButton')));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       // Assert
       expect(find.byKey(const Key('CurrencyResult')), findsOneWidget);
