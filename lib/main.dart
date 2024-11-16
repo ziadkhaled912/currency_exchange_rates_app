@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:currency_exchange/core/presentation/app.dart';
 import 'package:currency_exchange/core/presentation/cubits/language_cubit/language_cubit.dart';
 import 'package:currency_exchange/di/injection_container.dart';
+import 'package:currency_exchange/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +38,10 @@ Future<void> bootstrap() async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),

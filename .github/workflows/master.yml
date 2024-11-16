@@ -1,0 +1,62 @@
+name: Flutter Integration Tests with Firebase Test Lab
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration_tests:
+    name: Run Integration Tests on Firebase Test Lab
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: Generate Flutter build
+      - name: Build APK for testing
+        run: |
+          flutter build apk
+          ./gradlew app:assembleAndroidTest
+          ./gradlew app:assembleDebug -Ptarget=integration_test/app_test.dart
+
+      # Step 5: Authenticate with Google Cloud
+      - name: Authenticate with Google Cloud
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_TEST_LAB_KEY }}
+        run: |
+          echo "${{ secrets.FIREBASE_TEST_LAB_KEY }}" | base64 --decode > ${HOME}/gcloud-key.json
+          gcloud auth activate-service-account --key-file=${HOME}/gcloud-key.json
+          gcloud --quiet config set project currency-exchange-638aa
+
+      # Step 6: Run Firebase Test Lab
+      - name: Run integration tests on Firebase Test Lab
+        run: |
+          gcloud firebase test android run \
+            --type instrumentation \
+            --app build/app/outputs/flutter-apk/app-debug.apk \
+            --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+            --timeout 2m \
+            # --device model=Pixel2,version=28,locale=en,orientation=portrait
+
+      # Step 7: Upload Test Results as Artifact
+      - name: Upload Firebase Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: firebase-test-results
+          path: firebase/test-lab-results/
