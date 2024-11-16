@@ -1,5 +1,4 @@
 import 'package:currency_exchange/core/services/router/app_router.dart';
-import 'package:currency_exchange/di/injection_container.dart';
 import 'package:currency_exchange/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +28,8 @@ Future<BuildContext> pumpLocalizedWidget(
   const initialLocation = '/initial';
 
   late BuildContext context;
-  tester.view.physicalSize = const Size(375, 812);
-  tester.view.devicePixelRatio = 1.0;
+  // tester.view.physicalSize = const Size(375, 812);
+  // tester.view.devicePixelRatio = 1.0;
 
   final builderWidget = GoRoute(
     path: initialLocation,

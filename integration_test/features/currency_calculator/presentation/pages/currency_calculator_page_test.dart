@@ -2,6 +2,7 @@ import 'package:currency_exchange/features/currency_calculator/presentation/page
 import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:currency_exchange/features/home/domain/entities/currency.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
+import 'package:currency_exchange/features/home_base/presentation/home_base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,14 +25,16 @@ void main() {
   ];
 
   final currencyCalculatorPage = makeTestableWidget(
-    child: Scaffold(
-      body: CurrencyCalculatorPage(
+    child: HomeBasePage(
+      blocProviders: [
+        BlocProvider(
+          create: (context) => currencyCubit,
+        ),
+      ],
+      child: CurrencyCalculatorPage(
         currencyCubit: currencyCubit,
       ),
     ),
-    blocProvider: [
-      BlocProvider(create: (_) => currencyCubit),
-    ],
   );
 
   group('CurrencyCalculator Page Test', () {
@@ -154,7 +157,7 @@ then it should swap the selected currencies
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('SwapCurrencyButton')));
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       // Assert
       expect(find.byKey(const Key('CurrencyResult')), findsOneWidget);

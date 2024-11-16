@@ -19,34 +19,36 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 class HomeBasePage extends StatelessWidget {
   const HomeBasePage({
     required this.child,
-    super.key, this.currencyCubit,
+    super.key,
+    this.blocProviders,
   });
 
   static const String id = '/home';
 
   final Widget child;
-  final CurrencyCubit? currencyCubit;
+  final List<BlocProvider>? blocProviders;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => (currencyCubit ?? locator<CurrencyCubit>())
-            ..getLatestRates(LatestRatesRequestModel(
-              baseCurrency: CurrencyEnum.egp,
-              currencies: CurrencyEnum.values
-                  .where((element) => element != CurrencyEnum.egp)
-                  .toList(),
-            )),
-        ),
-        BlocProvider(
-          create: (context) => locator<GoldPriceCubit>()
-            ..getGoldPrice(
-              GoldPriceRequestModel(),
+      providers: blocProviders ??
+          [
+            BlocProvider(
+              create: (context) => locator<CurrencyCubit>()
+                ..getLatestRates(LatestRatesRequestModel(
+                  baseCurrency: CurrencyEnum.egp,
+                  currencies: CurrencyEnum.values
+                      .where((element) => element != CurrencyEnum.egp)
+                      .toList(),
+                )),
             ),
-        ),
-      ],
+            BlocProvider(
+              create: (context) => locator<GoldPriceCubit>()
+                ..getGoldPrice(
+                  GoldPriceRequestModel(),
+                ),
+            ),
+          ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.primary,
