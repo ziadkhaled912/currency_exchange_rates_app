@@ -33,8 +33,12 @@ jobs:
       - name: Build APK for testing
         run: |
           flutter build apk --target lib/main/main_development.dart
+
+      - name: Run Flutter tests
+        run: |
           ./gradlew app:assembleAndroidTest
           ./gradlew app:assembleDebug -Ptarget=integration_test/app_test.dart
+        working-directory: android
 
       # Step 5: Authenticate with Google Cloud
       - name: Authenticate with Google Cloud
