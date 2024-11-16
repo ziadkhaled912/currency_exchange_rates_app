@@ -1,16 +1,18 @@
-import 'package:auto_route/annotations.dart';
-import 'package:currency_exchange/core/extenstions/context.dart';
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
-import 'package:currency_exchange/core/extenstions/widgets_list_utils.dart';
+
+import 'package:currency_exchange/core/extensions/context.dart';
+import 'package:currency_exchange/core/extensions/screen_util.dart';
+import 'package:currency_exchange/core/extensions/widgets_list_utils.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/gold_rates/presentation/cubit/gold_price_cubit.dart';
 import 'package:currency_exchange/features/gold_rates/presentation/widgets/gold_price_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
+
 class GoldRatesPage extends StatelessWidget {
   const GoldRatesPage({super.key});
+
+  static const String id = '/goldRates';
 
   @override
   Widget build(BuildContext context) {

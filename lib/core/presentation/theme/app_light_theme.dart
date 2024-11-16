@@ -1,4 +1,4 @@
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
+import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/fonts/fonts_family_style.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:flutter/material.dart';

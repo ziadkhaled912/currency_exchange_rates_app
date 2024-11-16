@@ -13,29 +13,29 @@ class CurrencyState extends Equatable {
 
   CurrencyState requestLoading() => copyWith(
     isLoading: true,
-    failure: null,
-    currencies: null,
+    failure: Nullable(null),
+    currencies: Nullable(null),
   );
 
   CurrencyState requestSuccess(List<Currency> currencies) => copyWith(
     isLoading: false,
-    currencies: currencies,
+    currencies: Nullable(currencies),
   );
 
   CurrencyState requestFail(Failure failure) => copyWith(
     isLoading: false,
-    failure: failure,
+    failure: Nullable(failure),
   );
 
   CurrencyState copyWith({
     bool? isLoading,
-    Failure? failure,
-    List<Currency>? currencies,
+    Nullable<Failure?>? failure,
+    Nullable<List<Currency>?>? currencies,
   }) {
     return CurrencyState(
       isLoading: isLoading ?? this.isLoading,
-      failure: failure ?? this.failure,
-      currencies: currencies ?? this.currencies,
+      failure: failure == null ? this.failure : failure.value,
+      currencies: currencies == null ? this.currencies : currencies.value,
     );
   }
 

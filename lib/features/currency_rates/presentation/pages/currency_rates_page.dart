@@ -1,15 +1,17 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:currency_exchange/core/extenstions/context.dart';
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
+
+import 'package:currency_exchange/core/extensions/context.dart';
+import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/currency_rates/presentation/widgets/currency_card.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
+
 class CurrencyRatesPage extends StatelessWidget {
   const CurrencyRatesPage({super.key});
+
+  static const String id = '/currencyRates';
 
   @override
   Widget build(BuildContext context) {

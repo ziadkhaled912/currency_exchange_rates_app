@@ -3,9 +3,7 @@ import 'dart:io';
 
 import 'package:currency_exchange/core/data/api_manager/models/failures/failure.dart';
 import 'package:currency_exchange/core/data/api_manager/models/failures/failure_info.dart';
-import 'package:currency_exchange/core/data/api_manager/models/request/request_mixin.dart';
 import 'package:currency_exchange/core/helpers/dio2curl.dart';
-import 'package:currency_exchange/core/helpers/request_to_curl.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,8 +23,6 @@ abstract class ReportableFailure extends Failure {
     if (failureInfo.exception != null) {
       text += 'Exception: ${failureInfo.exception}\n';
     }
-
-    text += await requestInfo(failureInfo.request);
 
     text += await responseInfo(failureInfo.response);
 
@@ -52,39 +48,6 @@ abstract class ReportableFailure extends Failure {
         DateFormat('yyyy-MM-dd').add_jm().format(dateTime);
 
     return 'DateTime: $formattedDateTime\n';
-  }
-
-  Future<String> requestInfo(Request? request) async {
-    var text = '';
-    if (request != null) {
-      text += '\nRequest:\n';
-      text += 'URL: ${failureInfo.request!.url}\n';
-      text += 'Method: ${failureInfo.request!.method}\n';
-      //Query Parameters
-      text += 'Query Parameters:\n';
-      text += '${await failureInfo.request!.queryParameters}\n';
-
-      //Data
-      final data = await failureInfo.request!.data;
-      if (data != null) {
-        text += 'Data:\n';
-        text += '${await failureInfo.request!.data}\n';
-      }
-      if (failureInfo.response?.requestOptions == null) {
-        //headers
-        text += 'Request Headers:\n';
-        text += '${failureInfo.request!.headers}\n';
-        //curl
-        final curl = await request2curl(failureInfo.request);
-        if (curl != null) {
-          text += '\nStart Curl:\n\n';
-          text += '$curl\n';
-          text += '\nEnd Curl\n\n';
-        }
-      }
-    }
-
-    return '\n$text';
   }
 
   Future<String> responseInfo(Response<dynamic>? response) async {

@@ -1,87 +1,71 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
-import 'package:currency_exchange/features/home/data/mocks/latest_rates_request_model_mock.dart';
-import 'package:currency_exchange/features/home/data/mocks/latest_rates_response_model_mock.dart';
 import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model.dart';
 import 'package:currency_exchange/features/home/data/repository/currency_repository.dart';
+import 'package:currency_exchange/features/home/data/services/currency_api_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../core/data/api_manager/faker.dart';
-import '../../faker.dart';
+import '../../../../mock/data/latest_rates_request_model_mock.dart';
+import '../../../../mock/data/latest_rates_response_model_mock.dart';
+import '../../../faker.dart';
+
+class MockCurrencyApiServices extends Mock implements CurrencyApiServices {}
 
 void main() {
   late CurrencyRepository repository;
-  late MockAPIsManager mockAPIsManager;
+  late CurrencyApiServices mockApiServices;
 
   setUpAll(setupFaker);
 
   setUp(() {
-    mockAPIsManager = MockAPIsManager();
-    repository = CurrencyRepository(mockAPIsManager);
+    mockApiServices = MockCurrencyApiServices();
+    repository = CurrencyRepository(mockApiServices);
   });
 
-  group("getLatestRates", () {
+  group('getLatestRates', () {
     test(
-        "should return Right(LatestRatesResponseModel) when apiManager return valid data",
+        'should return Right(LatestRatesResponseModel) when apiManager return valid data',
         () async {
       // arrange
       when(
-        () => mockAPIsManager
-            .send<LatestRatesResponseModel, MessageResponseModel>(
-          request: any(named: "request"),
-          responseFromMap: any(named: "responseFromMap"),
+        () => mockApiServices.getLatestRates(
+          any(),
         ),
-      ).thenAnswer((_) async => Right(LatestRatesResponseModelMock.mock));
+      ).thenAnswer((_) async => LatestRatesResponseModelMock.mock);
       // act
       final result =
           await repository.getLatestRates(LatestRatesRequestModelMock.mock);
       // assert
       expect(
-          result,
-          Right<dynamic, LatestRatesResponseModel>(
-              LatestRatesResponseModelMock.mock));
+        result,
+        Right<dynamic, LatestRatesResponseModel>(
+          LatestRatesResponseModelMock.mock,
+        ),
+      );
     });
 
-    test(
-        "should return Left(ValidationError) when apiManager return invalid data",
+    test('should return Failure when apiManager return invalid data',
         () async {
       // arrange
-      final failure = ErrorFailure(
-        errorStatus: ErrorStatus.validationError,
-        error: MessageResponseModelMock.mock,
+      const serverException = ServerException(null);
+      final failure = UnknownFailure(
+        const FailureInfo(
+          exception: serverException,
+        ),
       );
       when(
-        () => mockAPIsManager
-            .send<LatestRatesResponseModel, MessageResponseModel>(
-          request: any(named: "request"),
-          responseFromMap: any(named: "responseFromMap"),
+        () => mockApiServices.getLatestRates(
+          any(),
         ),
-      ).thenAnswer((_) async => Left(failure));
+      ).thenThrow(serverException);
       // act
       final result =
           await repository.getLatestRates(LatestRatesRequestModelMock.mock);
       // assert
-      expect(result, Left<ErrorFailure, dynamic>(failure));
+      expect(result, Left<Failure, LatestRatesResponseModel>(failure));
     });
-
-    test(
-        "should return Left(ServiceNotAvailableFailure) when apiManager return Server error",
-            () async {
-          // arrange
-          final failure = ServiceNotAvailableFailure(FailureInfo());
-          when(
-                () => mockAPIsManager
-                .send<LatestRatesResponseModel, MessageResponseModel>(
-              request: any(named: "request"),
-              responseFromMap: any(named: "responseFromMap"),
-            ),
-          ).thenAnswer((_) async => Left(failure));
-          // act
-          final result =
-          await repository.getLatestRates(LatestRatesRequestModelMock.mock);
-          // assert
-          expect(result, Left<ServiceNotAvailableFailure, dynamic>(failure));
-        });
   });
 }
