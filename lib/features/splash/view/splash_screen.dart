@@ -1,6 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
-import 'package:currency_exchange/features/home_base/presentation/home_base_page.dart';
+import 'package:currency_exchange/features/auth/core/presentation/auth_cubit/auth_cubit.dart';
+import 'package:currency_exchange/features/auth/login/presentation/pages/login_page.dart';
+import 'package:currency_exchange/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,8 +22,11 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     // wait for 1 seconds just to show the splash screen
     Future<void>.delayed(const Duration(seconds: 1), () {
-      // ignore: use_build_context_synchronously
-      context.go(HomeBasePage.id);
+      if (context.read<AuthCubit>().state.isAuthenticated) {
+        context.go(HomePage.id);
+      } else {
+        context.go(LoginPage.id);
+      }
     });
   }
 

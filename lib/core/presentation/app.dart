@@ -5,24 +5,29 @@ import 'package:currency_exchange/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
-class App extends StatelessWidget {
-  const App({super.key, this.appRouter});
+class App extends StatefulWidget {
+  const App({super.key, this.initialLocation});
 
-  final GoRouter? appRouter;
-  
+  final String? initialLocation;
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  late final _router = AppRouter.router(widget.initialLocation);
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) {
+      builder: (context, child) {
         return BlocBuilder<LanguageCubit, LanguageState>(
           builder: (context, state) {
             return MaterialApp.router(
-              routerConfig: appRouter ?? AppRouter.router(),
+              routerConfig: _router,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               locale: state.locale,

@@ -3,14 +3,11 @@ import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/di/injection_container.dart';
 import 'package:currency_exchange/features/currency_calculator/presentation/pages/currency_calculator_page.dart';
-import 'package:currency_exchange/features/currency_rates/presentation/pages/currency_rates_page.dart';
-import 'package:currency_exchange/features/gold_rates/data/models/gold_price_request_model.dart';
-import 'package:currency_exchange/features/gold_rates/presentation/cubit/gold_price_cubit.dart';
-import 'package:currency_exchange/features/gold_rates/presentation/pages/gold_rates_page.dart';
 import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:currency_exchange/features/home/data/models/request_models/latest_rates_request_model.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
 import 'package:currency_exchange/features/home/presentation/pages/home_page.dart';
+import 'package:currency_exchange/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -42,12 +39,6 @@ class HomeBasePage extends StatelessWidget {
                       .toList(),
                 )),
             ),
-            BlocProvider(
-              create: (context) => locator<GoldPriceCubit>()
-                ..getGoldPrice(
-                  GoldPriceRequestModel(),
-                ),
-            ),
           ],
       child: Scaffold(
         appBar: AppBar(
@@ -73,7 +64,7 @@ class HomeBasePage extends StatelessWidget {
           onTap: (index) => _onItemTapped(context, index),
           backgroundColor: AppColors.primary,
           selectedItemColor: Colors.white,
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
           items: [
             /// Home
             SalomonBottomBarItem(
@@ -83,20 +74,12 @@ class HomeBasePage extends StatelessWidget {
             ),
 
             SalomonBottomBarItem(
-              icon: const Icon(Icons.currency_exchange),
-              title: const Text('Currencies'),
-              // selectedColor: Colors.pink,
-            ),
-
-            SalomonBottomBarItem(
-              icon: const Icon(Icons.grid_goldenratio),
-              title: const Text('Gold'),
-              // selectedColor: Colors.orange,
-            ),
-            SalomonBottomBarItem(
               icon: const Icon(Icons.calculate_outlined),
               title: const Text('Calculator'),
-              // selectedColor: Colors.orange,
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.settings),
+              title: const Text('Settings'),
             ),
           ],
         ),
@@ -106,12 +89,10 @@ class HomeBasePage extends StatelessWidget {
 
   int _currentIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
-    if (location.startsWith(CurrencyRatesPage.id)) {
+    if (location.startsWith(CurrencyCalculatorPage.id)) {
       return 1;
-    } else if (location.startsWith(GoldRatesPage.id)) {
+    } else if (location.startsWith(SettingsPage.id)) {
       return 2;
-    } else if (location.startsWith(CurrencyCalculatorPage.id)) {
-      return 3;
     }
     return 0;
   }
@@ -122,13 +103,10 @@ class HomeBasePage extends StatelessWidget {
         context.go(HomePage.id);
         break;
       case 1:
-        context.go(CurrencyRatesPage.id);
+        context.go(CurrencyCalculatorPage.id);
         break;
       case 2:
-        context.go(GoldRatesPage.id);
-        break;
-      case 3:
-        context.go(CurrencyCalculatorPage.id);
+        context.go(SettingsPage.id);
         break;
     }
   }

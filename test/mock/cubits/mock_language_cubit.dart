@@ -1,6 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:currency_exchange/core/presentation/cubits/language_cubit/language_cubit.dart';
+import 'package:injectable/injectable.dart';
 
+@Environment(Environment.test)
+@Scope(Environment.test)
+@Injectable(as: LanguageCubit)
 class MockLanguageCubit extends MockCubit<LanguageState>
     implements LanguageCubit {}
 

@@ -1,5 +1,6 @@
 import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
 import 'package:currency_exchange/core/helpers/app_faker.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model_mock.dart';
 import 'package:currency_exchange/features/home/data/services/currency_api_service.dart';
 import 'package:currency_exchange/flavor.dart';
 import 'package:dio/dio.dart';
@@ -7,8 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mock/data/latest_rates_request_model_mock.dart';
-import '../../../../mock/data/latest_rates_response_model_mock.dart';
-import '../../../faker.dart';
+import '../../faker.dart';
 
 void main() {
   late CurrencyApiServices currencyApiServices;
@@ -16,7 +16,7 @@ void main() {
 
   setUp(() {
     mockDio = MockDio();
-    currencyApiServices = CurrencyApiServices(mockDio);
+    currencyApiServices = CurrencyApiServicesImpl(mockDio);
   });
 
   group('getLatestRates', () {

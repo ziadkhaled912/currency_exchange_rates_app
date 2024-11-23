@@ -1,7 +1,6 @@
 import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model_mock.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../../../../mock/data/latest_rates_response_model_mock.dart';
 
 void main() {
   test('ContactUsResponseModel should be able to convert from and to json',

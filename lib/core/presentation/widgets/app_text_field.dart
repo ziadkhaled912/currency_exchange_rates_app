@@ -24,6 +24,7 @@ class AppTextField extends StatelessWidget {
     this.focusNode,
     this.isDense,
     this.textDirection,
+    this.obscureText = false,
   });
 
   final TextEditingController? controller;
@@ -46,6 +47,7 @@ class AppTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final bool? isDense;
   final TextDirection? textDirection;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class AppTextField extends StatelessWidget {
                 textDirection: textDirection,
                 focusNode: focusNode,
                 controller: controller,
-                maxLines: maxLines,
+                obscureText: obscureText,
                 keyboardType: (maxLines ?? 0) > 1
                     ? TextInputType.multiline
                     : textInputType,

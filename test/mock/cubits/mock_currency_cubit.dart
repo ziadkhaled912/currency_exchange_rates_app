@@ -1,9 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:currency_exchange/features/home/data/mappers/latest_rates_response_mapper.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/currency_model_mock.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
+import 'package:injectable/injectable.dart';
 
-import '../data/currency_model_mock.dart';
-
+@Environment(Environment.test)
+@Scope(Environment.test)
+@Injectable(as: CurrencyCubit)
 class MockCurrencyCubit extends MockCubit<CurrencyState>
     implements CurrencyCubit {}
 

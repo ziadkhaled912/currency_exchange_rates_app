@@ -54,6 +54,7 @@ class AppButton extends StatelessWidget {
         ),
         child: isLoading
             ? const CircularProgressIndicator(
+              key: Key('ButtonLoadingIndicator'),
                 color: AppColors.white,
               )
             : child ??

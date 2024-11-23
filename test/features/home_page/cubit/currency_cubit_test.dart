@@ -1,13 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
 import 'package:currency_exchange/features/home/data/mappers/latest_rates_response_mapper.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model_mock.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../mock/data/latest_rates_request_model_mock.dart';
-import '../../../mock/data/latest_rates_response_model_mock.dart';
 import '../../../mock/repository/mock_currency_repository.dart';
 
 void main() {

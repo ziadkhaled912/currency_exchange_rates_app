@@ -1,8 +1,7 @@
 import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:currency_exchange/features/home/data/mappers/latest_rates_response_mapper.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/currency_model_mock.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../../../../mock/data/currency_model_mock.dart';
 
 void main() {
   test(

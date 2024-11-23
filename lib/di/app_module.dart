@@ -17,7 +17,6 @@ abstract class AppModule {
           headers: {
             'Accept': 'application/json',
             'apikey': ApiConstants.apiKey,
-            'x-access-token': ApiConstants.goldApiKey,
           }),
     );
 

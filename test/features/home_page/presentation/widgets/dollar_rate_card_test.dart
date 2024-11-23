@@ -1,10 +1,10 @@
 import 'package:currency_exchange/features/home/data/mappers/latest_rates_response_mapper.dart';
+import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model_mock.dart';
 import 'package:currency_exchange/features/home/presentation/widgets/dollar_rate_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../helpers/test_utils.dart';
-import '../../../../mock/data/latest_rates_response_model_mock.dart';
 
 void main() {
   final mockCurrency =

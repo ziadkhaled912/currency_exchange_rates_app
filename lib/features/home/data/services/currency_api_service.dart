@@ -1,3 +1,5 @@
+// ignore_for_file: one_member_abstracts
+
 import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
 import 'package:currency_exchange/features/home/data/models/request_models/latest_rates_request_model.dart';
 import 'package:currency_exchange/features/home/data/models/response_models/latest_rates_response_model.dart';
@@ -5,13 +7,19 @@ import 'package:currency_exchange/flavor.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
-class CurrencyApiServices {
-  CurrencyApiServices(this._dio);
+abstract class CurrencyApiServices {
+  Future<LatestRatesResponseModel> getLatestRates(
+      LatestRatesRequestModel requestModel);
+}
+
+@LazySingleton(as: CurrencyApiServices)
+class CurrencyApiServicesImpl implements CurrencyApiServices {
+  CurrencyApiServicesImpl(this._dio);
 
   final Dio _dio;
   final StatusChecker _statusChecker = StatusChecker();
 
+  @override
   Future<LatestRatesResponseModel> getLatestRates(
     LatestRatesRequestModel requestModel,
   ) async {
