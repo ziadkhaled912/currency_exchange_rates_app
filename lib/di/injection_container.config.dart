@@ -8,45 +8,51 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dio/dio.dart' as _i4;
-import 'package:get_it/get_it.dart' as _i1;
-import 'package:injectable/injectable.dart' as _i2;
+import 'package:dio/dio.dart' as _i361;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
 
-import '../core/data/api_manager/api_manager.dart' as _i7;
-import '../core/data/api_manager/api_manager_implementation.dart' as _i5;
-import '../core/services/router/app_router.dart' as _i3;
-import '../features/gold_rates/data/repository/gold_repository.dart' as _i8;
-import '../features/gold_rates/presentation/cubit/gold_price_cubit.dart'
-    as _i10;
-import '../features/home/data/repository/currency_repository.dart' as _i6;
-import '../features/home/presentation/cubit/currency_cubit.dart' as _i9;
-import 'app_module.dart' as _i11;
+import '../features/auth/core/data/repository/auth_repository.dart' as _i842;
+import '../features/auth/core/data/services/auth_services.dart' as _i16;
+import '../features/auth/core/presentation/auth_cubit/auth_cubit.dart' as _i283;
+import '../features/auth/login/presentation/cubit/login_cubit.dart' as _i596;
+import '../features/auth/register/presentation/cubit/register_cubit.dart'
+    as _i1063;
+import '../features/home/data/repository/currency_repository.dart' as _i1023;
+import '../features/home/data/services/currency_api_service.dart' as _i795;
+import '../features/home/presentation/cubit/currency_cubit.dart' as _i793;
+import 'app_module.dart' as _i460;
 
-extension GetItInjectableX on _i1.GetIt {
+extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i1.GetIt init({
+  _i174.GetIt init({
     String? environment,
-    _i2.EnvironmentFilter? environmentFilter,
+    _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i2.GetItHelper(
+    final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
     final appModule = _$AppModule();
-    gh.singleton<_i3.AppRouter>(_i3.AppRouter());
-    gh.lazySingleton<_i4.Dio>(() => appModule.dio);
-    gh.lazySingleton<_i5.APIsManager>(() => _i5.APIsManager(gh<_i4.Dio>()));
-    gh.lazySingleton<_i6.CurrencyRepository>(
-        () => _i6.CurrencyRepository(gh<_i7.APIsManager>()));
-    gh.lazySingleton<_i8.GoldRepository>(
-        () => _i8.GoldRepository(gh<_i7.APIsManager>()));
-    gh.factory<_i9.CurrencyCubit>(
-        () => _i9.CurrencyCubit(gh<_i6.CurrencyRepository>()));
-    gh.factory<_i10.GoldPriceCubit>(
-        () => _i10.GoldPriceCubit(gh<_i8.GoldRepository>()));
+    gh.lazySingleton<_i361.Dio>(() => appModule.dio);
+    gh.lazySingleton<_i16.AuthServices>(() => _i16.AuthServicesImpl());
+    gh.lazySingleton<_i795.CurrencyApiServices>(
+        () => _i795.CurrencyApiServicesImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i1023.CurrencyRepository>(
+        () => _i1023.CurrencyRepositoryImpl(gh<_i795.CurrencyApiServices>()));
+    gh.factory<_i793.CurrencyCubit>(
+        () => _i793.CurrencyCubit(gh<_i1023.CurrencyRepository>()));
+    gh.lazySingleton<_i842.AuthRepository>(
+        () => _i842.AuthRepositoryImpl(gh<_i16.AuthServices>()));
+    gh.factory<_i283.AuthCubit>(
+        () => _i283.AuthCubit(gh<_i842.AuthRepository>()));
+    gh.factory<_i1063.RegisterCubit>(
+        () => _i1063.RegisterCubit(gh<_i842.AuthRepository>()));
+    gh.factory<_i596.LoginCubit>(
+        () => _i596.LoginCubit(gh<_i842.AuthRepository>()));
     return this;
   }
 }
 
-class _$AppModule extends _i11.AppModule {}
+class _$AppModule extends _i460.AppModule {}

@@ -28,6 +28,13 @@ class AppColors {
 
   static const basicBackgroundColor = Color(0xffFCFCFC);
 
+  static const lightSuccessColor = Color(0xffE6F4F1);
+  static const successColor = Color(0xff00945D);
+  static const lightErrorColor = Color(0xffFDECEC);
+  static const errorColor = Color(0xffEE383A);
+  static const lightWarningColor = Color(0xffFFF4E5);
+  static const warningColor = Color(0xffFFA800);
+
   static const secondText = Color(0xff807F7B);
   static const mainText = Color(0xff1C1B13);
 }

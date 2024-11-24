@@ -1,15 +1,17 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:currency_exchange/core/extenstions/context.dart';
-import 'package:currency_exchange/core/extenstions/screen_util.dart';
+
+import 'package:currency_exchange/core/extensions/context.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/currency_rates/presentation/widgets/currency_card.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-@RoutePage()
+
 class CurrencyRatesPage extends StatelessWidget {
   const CurrencyRatesPage({super.key});
+
+  static const String id = '/currencyRates';
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class CurrencyRatesPage extends StatelessWidget {
                     ),
                     itemCount: state.currencies!.length,
                     separatorBuilder: (_, index) =>
-                        SizedBox(height: 12.toHeight),
+                        SizedBox(height: 12.h),
                     itemBuilder: (_, index) {
                       final currency = state.currencies![index];
                       return CurrencyCard(

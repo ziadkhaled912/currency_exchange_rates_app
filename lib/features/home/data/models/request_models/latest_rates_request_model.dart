@@ -1,12 +1,11 @@
-import 'package:currency_exchange/core/data/api_manager/api_manager.dart';
-import 'package:currency_exchange/features/home/data/enums/currency.dart';
+import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
+import 'package:equatable/equatable.dart';
 
-class LatestRatesRequestModel extends RequestModel {
-  LatestRatesRequestModel({
+class LatestRatesRequestModel extends Equatable {
+  const LatestRatesRequestModel({
     required this.baseCurrency,
     required this.currencies,
-    RequestProgressListener? progressListener,
-  }) : super(progressListener);
+  });
 
   final CurrencyEnum baseCurrency;
   final List<CurrencyEnum> currencies;
@@ -14,11 +13,10 @@ class LatestRatesRequestModel extends RequestModel {
   @override
   List<Object?> get props => [baseCurrency, currencies];
 
-  @override
-  Future<Map<String, dynamic>> toMap() async {
+  Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    map["base_currency"] = baseCurrency.code;
-    map["currencies"] = currencies.map((e) => e.code).join(",");
+    map['base_currency'] = baseCurrency.code;
+    map['currencies'] = currencies.map((e) => e.code).join(',');
     return map;
   }
 }

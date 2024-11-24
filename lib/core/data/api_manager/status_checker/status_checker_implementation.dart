@@ -20,12 +20,8 @@ class StatusChecker {
         timeout;
     if (success.contains(statusCode)) return HTTPCodes.success;
     if (error.contains(statusCode)) return HTTPCodes.error;
-    if (authenticationError.contains(statusCode)) return HTTPCodes.invalidToken;
-    if (invalidToken.contains(statusCode)) return HTTPCodes.invalidToken;
 
-    return serviceNotAvailable.contains(statusCode)
-        ? HTTPCodes.serviceNotAvailable
-        : HTTPCodes.unknown;
+    return HTTPCodes.unknown;
   }
 
   ErrorStatus getErrorState(int? statusCode) {
