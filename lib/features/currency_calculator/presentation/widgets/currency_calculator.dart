@@ -1,5 +1,4 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/extensions/validators.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/currency_calculator/presentation/cubit/currency_calculator_cubit.dart';
@@ -49,7 +48,7 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
                         );
                       },
                     ),
-                    SizedBox(height: 12.toHeight),
+                    SizedBox(height: 12.h),
                     BlocBuilder<CurrencyCalculatorCubit, CurrencyCalculatorState>(
                       buildWhen: (previous, current) =>
                           previous.secondSelectedCurrency !=
@@ -84,15 +83,15 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
               ),
             ],
           ),
-          SizedBox(height: 12.toHeight),
+          SizedBox(height: 12.h),
           Text(
             'Amount',
             style: context.textTheme.labelSmall?.copyWith(
               color: AppColors.mainText,
-              fontSize: 12.toFont,
+              fontSize: 12.sp,
             ),
           ),
-          SizedBox(height: 8.toHeight),
+          SizedBox(height: 8.h),
           TextFormField(
             key: const Key('CurrencyTextField'),
             onChanged: (value) {
@@ -111,7 +110,7 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
               hintStyle: Theme.of(context)
                   .textTheme
                   .labelSmall
-                  ?.copyWith(color: AppColors.secondText, fontSize: 12.toFont),
+                  ?.copyWith(color: AppColors.secondText, fontSize: 12.sp),
               // suffixIcon: suffix,
               // prefixIcon: prefix,
               enabledBorder: OutlineInputBorder(
@@ -140,7 +139,7 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
               ),
             ),
           ),
-          SizedBox(height: 16.toHeight),
+          SizedBox(height: 16.h),
           BlocBuilder<CurrencyCalculatorCubit, CurrencyCalculatorState>(
             buildWhen: (previous, current) => previous.result != current.result,
             builder: (context, state) {
@@ -156,17 +155,17 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
                     '${state.amount} ${state.firstSelectedCurrency?.currencyEnum.code} =',
                     key: const Key('CurrencyResultInput'),
                     style: context.textTheme.bodySmall?.copyWith(
-                      fontSize: 12.toFont,
+                      fontSize: 12.sp,
                       color: AppColors.darkBlueGrey,
                     ),
                   ),
-                  SizedBox(height: 4.toHeight),
+                  SizedBox(height: 4.h),
                   Text(
                     // ignore: lines_longer_than_80_chars
                     '${state.result?.toStringAsFixed(2)} ${state.secondSelectedCurrency?.currencyEnum.code}',
                     key: const Key('CurrencyResult'),
                     style: context.textTheme.bodySmall?.copyWith(
-                      fontSize: 18.toFont,
+                      fontSize: 18.sp,
                       color: AppColors.darkBlueGrey,
                     ),
                   ),

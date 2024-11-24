@@ -1,5 +1,4 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/di/injection_container.dart';
 import 'package:currency_exchange/features/currency_calculator/presentation/pages/currency_calculator_page.dart';
@@ -10,6 +9,7 @@ import 'package:currency_exchange/features/home/presentation/pages/home_page.dar
 import 'package:currency_exchange/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -47,7 +47,7 @@ class HomeBasePage extends StatelessWidget {
             'Gold Today',
             style: context.textTheme.titleSmall?.copyWith(
               color: Colors.white,
-              fontSize: 18.toFont,
+              fontSize: 18.sp,
             ),
           ),
         ),

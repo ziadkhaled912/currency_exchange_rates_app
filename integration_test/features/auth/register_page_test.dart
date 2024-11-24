@@ -93,9 +93,7 @@ void main() {
       // Act
       await pressSignUp(tester);
 
-      await Future<void>.delayed(
-            const Duration(milliseconds: 500)); // Simulate delay
-      await tester.pumpAndSettle();
+      await assertLoading(tester);
       // Assert
       expect(find.byType(RegisterPage), findsNothing);
       expect(find.byType(HomeBasePage), findsOneWidget);
@@ -125,8 +123,7 @@ void main() {
       // Act
       await pressSignUp(tester);
       // Assert
-      await Future<void>.delayed(
-          const Duration(milliseconds: 500)); // Simulate delay
+      await assertLoading(tester);
 
       await tester.pumpAndSettle();
       await tester.pump(); // Trigger the Snackbar animation
@@ -179,4 +176,12 @@ Future<void> pressSignUp(WidgetTester tester) async {
 
   final signUpButton = find.byKey(const Key('signUpButton'));
   await tester.tap(signUpButton);
+}
+
+Future<void> assertLoading(WidgetTester tester) async {
+  await tester.pump(Duration.zero);
+  expect(find.byKey(const Key('ButtonLoadingIndicator')), findsOneWidget);
+  await tester.pump(const Duration(milliseconds: 500));
+  expect(find.byKey(const Key('ButtonLoadingIndicator')), findsNothing);
+  await tester.pumpAndSettle();
 }

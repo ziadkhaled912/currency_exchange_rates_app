@@ -1,9 +1,9 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/home/presentation/widgets/home_card.dart';
 import 'package:currency_exchange/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DollarRateCard extends StatelessWidget {
   const DollarRateCard({
@@ -27,9 +27,9 @@ class DollarRateCard extends StatelessWidget {
               Image.asset(
                 Assets.flagsUnitedStates,
                 key: const Key('DollarRateCardFlag'),
-                width: 24.toWidth,
+                width: 24.w,
               ),
-              SizedBox(width: 8.toWidth),
+              SizedBox(width: 8.w),
               Text(
                 'USD / EGP',
                 key: const Key('DollarRateCardCurrencyText'),
@@ -39,14 +39,14 @@ class DollarRateCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12.toHeight),
+          SizedBox(height: 12.h),
           Text(
             'Today USD in Egypt',
             key: const Key('DollarRateCardBodyText'),
             style: context.textTheme.labelSmall?.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.secondText,
-              fontSize: 12.toFont,
+              fontSize: 12.sp,
             ),
           ),
           SizedBox(

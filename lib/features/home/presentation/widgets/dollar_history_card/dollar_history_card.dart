@@ -1,9 +1,9 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/core/presentation/widgets/drop_downs/drop_down_item.dart';
 import 'package:currency_exchange/features/home/presentation/widgets/home_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DollarHistoryCard extends StatefulWidget {
@@ -70,10 +70,10 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
                   ),
                 ),
               ),
-              SizedBox(width: 8.toWidth),
+              SizedBox(width: 8.w),
               DropdownButton<Duration>(
                 style: context.textTheme.labelSmall?.copyWith(
-                  fontSize: 12.toFont,
+                  fontSize: 12.sp,
                   color: AppColors.mainText,
                 ),
                 items: timeRanges
@@ -86,11 +86,11 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
               ),
             ],
           ),
-          SizedBox(height: 12.toHeight),
+          SizedBox(height: 12.h),
           SfCartesianChart(
             primaryXAxis: DateTimeAxis(
               labelStyle: TextStyle(
-                fontSize: 12.toFont,
+                fontSize: 12.sp,
               ),
             ),
             primaryYAxis: NumericAxis(
@@ -98,7 +98,7 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
               maximum: 40,
               interval: 10,
               labelStyle: TextStyle(
-                fontSize: 12.toFont,
+                fontSize: 12.sp,
               ),            ),
             series: <CartesianSeries<_ChartData, DateTime>>[
               AreaSeries<_ChartData, DateTime>(
@@ -112,7 +112,6 @@ class _DollarHistoryCardState extends State<DollarHistoryCard> {
                 xValueMapper: (_ChartData data, _) => data.x,
                 yValueMapper: (_ChartData data, _) => data.y,
                 name: 'Gold',
-                borderDrawMode: BorderDrawMode.top,
                 borderColor: Colors.green,
                 borderWidth: 4,
                 color: AppColors.primary.withOpacity(0.25),

@@ -1,14 +1,18 @@
+import 'package:currency_exchange/core/presentation/app.dart';
+import 'package:currency_exchange/core/presentation/cubits/language_cubit/language_cubit.dart';
+import 'package:currency_exchange/features/auth/core/presentation/auth_cubit/auth_cubit.dart';
 import 'package:currency_exchange/features/currency_calculator/presentation/pages/currency_calculator_page.dart';
 import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:currency_exchange/features/home/domain/entities/currency.dart';
 import 'package:currency_exchange/features/home/presentation/cubit/currency_cubit.dart';
-import 'package:currency_exchange/features/home_base/presentation/home_base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../test/helpers/test_utils.dart';
 import '../../../test/mock/cubits/mock_currency_cubit.dart';
+import '../../../test/mock/data/latest_rates_request_model_mock.dart';
 
 void main() {
   final currencyCubit = MockCurrencyCubit();
@@ -25,22 +29,28 @@ void main() {
   ];
 
   final currencyCalculatorPage = makeTestableWidget(
-    child: HomeBasePage(
-      blocProviders: [
-        BlocProvider(
-          create: (context) => currencyCubit,
-        ),
-      ],
-      child: CurrencyCalculatorPage(
-        currencyCubit: currencyCubit,
-      ),
-    ),
+    child: const App(initialLocation: CurrencyCalculatorPage.id),
+    blocProvider: [
+      BlocProvider<AuthCubit>.value(value: authCubit),
+      BlocProvider<LanguageCubit>.value(value: languageCubit),
+    ],
   );
+
+  setUpAll(() async {
+    registerFallbackValue(LatestRatesRequestModelMock.mock);
+  });
 
   group('CurrencyCalculator Page Test', () {
     setUpAll(() async {
-      setupWhenListen(
-          currencyCubit, [CurrencyState(currencies: currenciesListMock)]);
+      await initSignedInUser(
+        currencyCubit: currencyCubit,
+      );
+      when(() => currencyCubit.getLatestRates(any())).thenAnswer(
+        (_) async {},
+      );
+      when(() => currencyCubit.state).thenReturn(
+        CurrencyState(currencies: currenciesListMock),
+      );
     });
 
     double calculateCurrency(num amount, CurrencyEnum from, CurrencyEnum to) {
@@ -66,7 +76,7 @@ then it should convert the value to the selected currency
       const fromCurrency = CurrencyEnum.usd;
       const toCurrency = CurrencyEnum.eur;
       final result = calculateCurrency(amount, fromCurrency, toCurrency);
-      await pumpLocalizedWidget(tester, currencyCalculatorPage);
+      await tester.pumpWidget(currencyCalculatorPage);
 
       // Arrange
       await selectCurrency(

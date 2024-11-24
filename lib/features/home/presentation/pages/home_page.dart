@@ -1,4 +1,3 @@
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/features/currency_rates/presentation/widgets/currency_card.dart';
 import 'package:currency_exchange/features/home/data/enums/currency_enum.dart';
 import 'package:currency_exchange/features/home/domain/entities/currency.dart';
@@ -6,6 +5,7 @@ import 'package:currency_exchange/features/home/presentation/cubit/currency_cubi
 import 'package:currency_exchange/features/home/presentation/widgets/dollar_rate_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomePage extends StatelessWidget {
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                 return const SizedBox.shrink();
               },
             ),
-            SizedBox(height: 16.toHeight),
+            SizedBox(height: 16.h),
             const Text(
               'Currencies',
               key: Key('CurrencyExchangeText'),
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 12.toHeight),
+            SizedBox(height: 12.h),
             BlocBuilder<CurrencyCubit, CurrencyState>(
               builder: (context, state) {
                 return Skeletonizer(
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (_, index) =>
-                        SizedBox(height: 12.toHeight),
+                        SizedBox(height: 12.h),
                     itemBuilder: (_, index) {
                       final currency = state.currencies?[index] ??
                           const Currency(

@@ -130,13 +130,8 @@ void main() {
         await pressLogin(tester);
 
         // Assert
-        await Future<void>.delayed(
-            const Duration(milliseconds: 500)); // Simulate delay
-
-        // expect(find.byKey(const Key('ButtonLoadingIndicator')), findsOneWidget);
-        await tester.pumpAndSettle();
-        // expect(find.byKey(const Key('ButtonLoadingIndicator')), findsNothing);
-
+        await assertLoading(tester);
+        
         expect(find.byType(LoginPage), findsNothing);
         expect(find.byType(HomeBasePage), findsOneWidget);
       });
@@ -168,10 +163,8 @@ void main() {
         await pressLogin(tester);
 
         // Assert
-        await Future<void>.delayed(
-            const Duration(milliseconds: 500)); // Simulate delay
+        await assertLoading(tester);
 
-        
         await tester.pumpAndSettle();
         await tester.pump(); // Trigger the Snackbar animation
 
@@ -247,7 +240,16 @@ void assertInValidForm(WidgetTester tester) {
 }
 
 Future<void> pressLogin(WidgetTester tester) async {
+  await tester.ensureVisible(find.byKey(const Key('loginButton')));
   final loginButton = find.byKey(const Key('loginButton'));
   await tester.tap(loginButton);
+  // await tester.pumpAndSettle();
+}
+
+Future<void> assertLoading(WidgetTester tester) async {
+  await tester.pump(Duration.zero);
+  expect(find.byKey(const Key('ButtonLoadingIndicator')), findsOneWidget);
+  await tester.pump(const Duration(milliseconds: 500));
+  expect(find.byKey(const Key('ButtonLoadingIndicator')), findsNothing);
   await tester.pumpAndSettle();
 }

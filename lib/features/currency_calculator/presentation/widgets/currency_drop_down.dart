@@ -1,8 +1,8 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/features/home/domain/entities/currency.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CurrencyDropDown extends StatelessWidget {
   const CurrencyDropDown({
@@ -30,10 +30,10 @@ class CurrencyDropDown extends StatelessWidget {
           label,
           style: context.textTheme.labelSmall?.copyWith(
             color: AppColors.mainText,
-            fontSize: 12.toFont,
+            fontSize: 12.sp,
           ),
         ),
-        SizedBox(height: 8.toHeight),
+        SizedBox(height: 8.h),
         SizedBox(
           width: double.infinity,
           child: DropdownButton(
@@ -42,7 +42,7 @@ class CurrencyDropDown extends StatelessWidget {
               'Select the currency',
               style: context.textTheme.labelSmall?.copyWith(
                 color: AppColors.secondText,
-                fontSize: 12.toFont,
+                fontSize: 12.sp,
               ),
             ),
             value: selectedCurrency,
@@ -54,7 +54,7 @@ class CurrencyDropDown extends StatelessWidget {
                       e.currencyEnum.name,
                       style: context.textTheme.labelSmall?.copyWith(
                         color: AppColors.mainText,
-                        fontSize: 12.toFont,
+                        fontSize: 12.sp,
                       ),
                     ),
                   ),

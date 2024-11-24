@@ -1,8 +1,8 @@
 import 'package:currency_exchange/core/extensions/context.dart';
-import 'package:currency_exchange/core/extensions/screen_util.dart';
 import 'package:currency_exchange/core/presentation/theme/resources/values/app_colors.dart';
 import 'package:currency_exchange/core/presentation/widgets/drop_downs/drop_down_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class GenericDropDownButton<T> extends StatefulWidget {
@@ -28,7 +28,8 @@ class GenericDropDownButton<T> extends StatefulWidget {
   final bool isLoading;
 
   @override
-  State<GenericDropDownButton<T>> createState() => _GenericDropDownButtonState<T>();
+  State<GenericDropDownButton<T>> createState() =>
+      _GenericDropDownButtonState<T>();
 }
 
 class _GenericDropDownButtonState<T> extends State<GenericDropDownButton<T>> {
@@ -51,9 +52,9 @@ class _GenericDropDownButtonState<T> extends State<GenericDropDownButton<T>> {
             child: Text(
               widget.labelText!,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: AppColors.mainText,
-                height: 24 / 14,
-              ),
+                    color: AppColors.mainText,
+                    height: 24 / 14,
+                  ),
             ),
           ),
         Stack(
@@ -62,13 +63,14 @@ class _GenericDropDownButtonState<T> extends State<GenericDropDownButton<T>> {
               opacity: widget.isLoading ? 0.0 : 1.0,
               child: DropdownButtonFormField<T>(
                 borderRadius: BorderRadius.circular(4),
-                hint: Text(widget.hintText, style: context.textTheme.labelSmall?.copyWith(
-                  color: AppColors.secondText,
-                  fontSize: 12.toFont,
-                )),
+                hint: Text(widget.hintText,
+                    style: context.textTheme.labelSmall?.copyWith(
+                      color: AppColors.secondText,
+                      fontSize: 12.sp,
+                    )),
                 value: selectedItem,
-                validator: (value) => value == null
-                    ? "This field is required" : null,
+                validator: (value) =>
+                    value == null ? 'This field is required' : null,
                 focusNode: widget.focusNode,
                 isExpanded: true,
                 icon: const Icon(
@@ -76,32 +78,38 @@ class _GenericDropDownButtonState<T> extends State<GenericDropDownButton<T>> {
                   size: 24,
                   color: AppColors.secondText,
                 ),
-                onChanged: widget.onChanged != null ? (value) {
-                  setState(() {
-                    selectedItem = value;
-                    widget.onChanged!(value);
-                  });
-                } : null,
+                onChanged: widget.onChanged != null
+                    ? (value) {
+                        setState(() {
+                          selectedItem = value;
+                          widget.onChanged!(value);
+                        });
+                      }
+                    : null,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: AppColors.mainText,
-                  fontSize: 14.toFont,
-                ),
+                      color: AppColors.mainText,
+                      fontSize: 14.sp,
+                    ),
                 decoration: InputDecoration(
                   enabled: true,
-                  contentPadding: const EdgeInsetsDirectional.only(start: 16, top: 12, bottom: 12, end: 8),
+                  contentPadding: const EdgeInsetsDirectional.only(
+                      start: 16, top: 12, bottom: 12, end: 8),
                   filled: true,
                   fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(width: 1, color: AppColors.brownishGrey),
+                    borderSide: const BorderSide(
+                        width: 1, color: AppColors.brownishGrey),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(width: 1, color: AppColors.brownishGrey),
+                    borderSide: const BorderSide(
+                        width: 1, color: AppColors.brownishGrey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(width: 1, color: AppColors.primary),
+                    borderSide:
+                        const BorderSide(width: 1, color: AppColors.primary),
                   ),
                 ),
                 items: widget.items
@@ -113,51 +121,54 @@ class _GenericDropDownButtonState<T> extends State<GenericDropDownButton<T>> {
                     .toList(),
               ),
             ),
-            if(widget.isLoading)
-            Positioned.fill(
-              child: Opacity(
-                opacity: widget.isLoading ? 1.0 : 0.0,
-                child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      enabled: true,
-                      contentPadding: const EdgeInsetsDirectional.only(start: 16, top: 12, bottom: 12, end: 8),
-                      filled: true,
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(width: 1, color: AppColors.brownishGrey),
+            if (widget.isLoading)
+              Positioned.fill(
+                child: Opacity(
+                  opacity: widget.isLoading ? 1.0 : 0.0,
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        enabled: true,
+                        contentPadding: const EdgeInsetsDirectional.only(
+                            start: 16, top: 12, bottom: 12, end: 8),
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              width: 1, color: AppColors.brownishGrey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              width: 1, color: AppColors.brownishGrey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              width: 1, color: AppColors.primary),
+                        ),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(width: 1, color: AppColors.brownishGrey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(width: 1, color: AppColors.primary),
-                      ),
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: '',
-                        child: Text(''),
-                      ),
-                    ],
-                    onChanged: null,
-                    hint: Container(
-                      width: context.screenWidth * 0.35,
-                      height: 15.toHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4)
+                      items: const [
+                        DropdownMenuItem(
+                          value: '',
+                          child: Text(''),
+                        ),
+                      ],
+                      onChanged: null,
+                      hint: Container(
+                        width: context.screenWidth * 0.35,
+                        height: 15.sp,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4)),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ],

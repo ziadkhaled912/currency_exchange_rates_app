@@ -4,7 +4,7 @@ class AuthUserModelMock {
   static const mockUid = 'test_uid';
   static const mockEmail = 'test_email';
   static const mockName = 'test_name';
-  static const mockPhotoURL = 'test_photo_url';
+  static const mockPhotoURL = 'https://test.com/photo.jpg';
 
   static const mockAuthUserModel = AuthUserModel(
     id: mockUid,
